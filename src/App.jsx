@@ -8,7 +8,7 @@ import { AudioProvider } from "./context/AudioContext"; // Import AudioProvider
 import AppRouter from "./router/AppRouter";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
-import TopNavBar from "./components/navbar/TopNavbar";
+import TopNavBar from "./components/navbar/TopNavBar.jsx";
 import { OpenAIProvider, useOpenAI } from "./services/openai"; 
 
 // OpenAIInitializer definition remains the same
