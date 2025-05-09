@@ -8,7 +8,7 @@ import MainLayout from "../components/shared/MainLayout";
 import { useApp } from "../context/AppContext";
 import Animation from "../assets/Animation.json";
 import Lottie from "lottie-react";
-import robot from "../assets/robot.png";
+import robot from "../assets/Robot.png";
 
 const Home = () => {
   const { currentUser, loading } = useAuth();

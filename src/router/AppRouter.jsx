@@ -4,8 +4,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
 import ChatPage from "../pages/ChatPage";
-import TranscriptionPage from "../pages/Transcriptionpage";
-import ProfilePage from "../pages/Profilepage";
+import Transcription from "../pages/Transcription";
+import Profile from "../pages/Profile";
 import { useAuth } from "../context/AuthContext";
 import PrivateRoute from "./PrivateRouter";
 import MainLayout from "../components/shared/MainLayout";  // Import MainLayout here
@@ -45,7 +45,7 @@ const AppRouter = () => {
         element={
           <PrivateRoute>
             <MainLayout>
-              <TranscriptionPage />
+              <Transcription />
             </MainLayout>
           </PrivateRoute>
         }
@@ -55,7 +55,7 @@ const AppRouter = () => {
         element={
           <PrivateRoute>
             <MainLayout>
-              <ProfilePage />
+              <Profile />
             </MainLayout>
           </PrivateRoute>
         }

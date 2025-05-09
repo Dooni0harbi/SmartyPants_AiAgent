@@ -1,9 +1,9 @@
-// src/pages/TranscriptionPage.jsx
+// src/pages/Transcription.jsx
 import React from "react";
 import TranscriptionComponent from "../components/transcription/TranscriptionViewer";
 
-const TranscriptionPage = () => {
+const Transcription = () => {
   return <TranscriptionComponent />;
 };
 
-export default TranscriptionPage;
+export default Transcription;

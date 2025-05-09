@@ -1,8 +1,8 @@
 import React from "react";
 import APIKeyManager from "../components/profile/APIKeyManager";
 
-const ProfilePage = () => {
+const Profile = () => {
   return <APIKeyManager />;
 };
 
-export default ProfilePage;
+export default Profile;
