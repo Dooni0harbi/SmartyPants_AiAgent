@@ -1,3 +1,4 @@
+import { useOpenAI } from "../services/openai";
 
 export const useChat = () => {
     const { chat, isInitialized } = useOpenAI();

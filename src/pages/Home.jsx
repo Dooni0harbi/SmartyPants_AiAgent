@@ -8,6 +8,7 @@ import MainLayout from "../components/shared/MainLayout";
 import { useApp } from "../context/AppContext";
 import Animation from "../assets/Animation.json";
 import Lottie from "lottie-react";
+import robot from "../assets/robot.png";
 
 const Home = () => {
   const { currentUser, loading } = useAuth();
@@ -34,6 +35,12 @@ const Home = () => {
   if (!currentUser) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50 dark:bg-gray-900">
+         <img 
+        src={robot} 
+        alt="AI Agent Logo" 
+        className="w-40 h-auto mb-6"  // 👈 w-40 is 160px wide, adjust if needed
+      />
+  
         <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center">
           Welcome to Smarty Pants AI
         </h1>
