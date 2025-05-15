@@ -93,6 +93,10 @@ Login/signup functionality
 Google authentication
 Logout functionality
 
+The link to the App :
+https://smartypants0aiagent.netlify.app
+
+
 Preview 
 App Demo 
 
