@@ -5,6 +5,8 @@ import { useApp } from "../../context/AppContext";
 import { useAudio } from "../../context/AudioContext";
 import ProgressIndicator from "./ProgressIndicator";
 import useChat from "../../hooks/useChat";
+import Lottie from "lottie-react";
+import soundAnimation from "../../assets/sound.json"; // adjust path accordingly
 
 const TranscriptionComponent = () => {
   const { sendMessage } = useChat();
@@ -55,70 +57,86 @@ const TranscriptionComponent = () => {
   };
 
   return (
-    <div className="p-4">
-      <div className="buttons-container mb-4 space-x-4">
+    <div className="p-4 space-y-6">
+
+      {/* Voice Recorder Card */}
+      <div className="bg-white dark:bg-gray-900 rounded-lg p-6 card-shadow animate-pulseRGB">
+        <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+          Voice Recorder
+        </h2>
+
         <button
           onClick={isRecording ? stopRecording : startRecording}
-          className={`px-4 py-2 rounded text-white ${
-            isRecording ? "bg-red-500" : "bg-green-600"
+          className={`px-6 py-3 rounded text-white font-medium transition-colors ${
+            isRecording ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"
           }`}
         >
           {isRecording ? "Stop Recording" : "Start Recording"}
         </button>
+
+        {isRecording && (
+          <div className="mt-6 w-32 mx-auto">
+            <Lottie animationData={soundAnimation} loop={true} />
+          </div>
+        )}
+
+        {audioBlob && !isRecording && (
+          <>
+            <div className="mt-6">
+              <audio controls src={URL.createObjectURL(audioBlob)} className="w-full" />
+            </div>
+            <button
+              onClick={() =>
+                handleAudioUpload(new File([audioBlob], "recording.wav", { type: "audio/wav" }))
+              }
+              className="mt-4 px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            >
+              Transcribe Recorded Audio
+            </button>
+          </>
+        )}
       </div>
 
-      {/* Card for recorded audio playback and transcription button */}
-      {audioBlob && !isRecording && (
-        <div className="card-shadow rounded-lg p-4 mb-4 animate-pulseRGB bg-white dark:bg-gray-900">
-          <audio controls src={URL.createObjectURL(audioBlob)} className="w-full mb-4" />
-          <button
-            onClick={() =>
-              handleAudioUpload(new File([audioBlob], "recording.wav", { type: "audio/wav" }))
-            }
-            className="upload-button px-4 py-2 bg-blue-600 text-white rounded"
-          >
-            Transcribe Recorded Audio
-          </button>
-        </div>
-      )}
+      {/* Upload Audio Card */}
+      <div className="bg-white dark:bg-gray-900 rounded-lg p-6 card-shadow-fuchsia animate-pulseRGB">
+        <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+          Upload Audio File
+        </h2>
 
-      {/* Card for uploaded audio transcription button */}
-      {selectedFile && (
-        <div className="card-shadow-fuchsia rounded-lg p-4 mb-4 animate-pulseRGB bg-white dark:bg-gray-900">
+        <input
+          type="file"
+          accept="audio/*"
+          onChange={handleFileChange}
+          className="mb-4"
+        />
+
+        {selectedFile && (
           <button
             onClick={() => handleAudioUpload(selectedFile)}
-            className="upload-button px-4 py-2 bg-purple-600 text-white rounded"
+            className="px-6 py-3 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
           >
             Transcribe Uploaded Audio
           </button>
-        </div>
-      )}
-
-      <ProgressIndicator loading={isTranscribing} />
-
-      {/* File upload input */}
-      <input
-        type="file"
-        accept="audio/*"
-        onChange={handleFileChange}
-        className="mb-4"
-      />
+        )}
+      </div>
 
       {/* Transcription Result Card */}
       {transcription && (
-        <div className="card-shadow rounded-lg p-4 mt-6 bg-gray-50 dark:bg-gray-800 dark:text-white">
-          <h3 className="font-semibold mb-2">Transcription Result:</h3>
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-gray-900 dark:text-white card-shadow">
+          <h3 className="text-lg font-semibold mb-2">Transcription Result:</h3>
           <p>{transcription}</p>
         </div>
       )}
 
       {/* Chatbot Response Card */}
       {chatReply && (
-        <div className="card-shadow-fuchsia rounded-lg p-4 mt-4 bg-blue-50 dark:bg-gray-700 dark:text-white">
-          <h3 className="font-semibold mb-2">Chatbot Response:</h3>
+        <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-6 text-gray-900 dark:text-white card-shadow-fuchsia">
+          <h3 className="text-lg font-semibold mb-2">Chatbot Response:</h3>
           <p>{chatReply}</p>
         </div>
       )}
+
+      <ProgressIndicator loading={isTranscribing} />
     </div>
   );
 };
