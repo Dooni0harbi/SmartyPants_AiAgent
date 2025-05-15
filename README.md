@@ -93,4 +93,10 @@ Login/signup functionality
 Google authentication
 Logout functionality
 
+Preview 
+App Demo 
+
+
+
+
 
