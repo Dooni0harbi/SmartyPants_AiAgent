@@ -5,7 +5,7 @@ import { toastErrorNotify } from "../helper/ToastNotify";
 import GoogleIcon from "../assets/GoogleIcon";
 
 const Login = () => {
-  const { signIn, signUpProvider } = useAuth();
+  const { signIn, signUpWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const Login = () => {
     setLoading(true);
     try {
       await signIn(email, password);
-      navigate("/");
+      navigate("/chat"); // Redirect to chat after sign-in
     } catch (error) {
       toastErrorNotify(error.message);
     } finally {
@@ -27,8 +27,8 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      await signUpProvider();
-      navigate("/");
+      await signUpWithGoogle();
+      navigate("/chat"); // Redirect to chat after sign-in
     } catch (error) {
       toastErrorNotify(error.message);
     } finally {
@@ -48,6 +48,8 @@ const Login = () => {
           <div className="relative z-0 w-full mb-4">
             <input
               type="email"
+              name="email"
+              autoComplete="username"
               placeholder="Email"
               className="peer w-full p-3 border border-gray-300 rounded-md bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
               value={email}
@@ -60,6 +62,8 @@ const Login = () => {
           <div className="relative z-0 w-full mb-6">
             <input
               type="password"
+              name="password"
+              autoComplete="current-password"
               placeholder="Password"
               className="peer w-full p-3 border border-gray-300 rounded-md bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
               value={password}
@@ -92,7 +96,7 @@ const Login = () => {
           {/* Link to Register */}
           <div className="text-center mt-4">
             <Link to="/register" className="text-blue-500 hover:text-blue-600">
-              Don&apos;t have an account? Register
+              Don't have an account? Register
             </Link>
           </div>
         </form>
