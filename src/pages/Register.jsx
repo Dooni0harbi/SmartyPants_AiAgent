@@ -4,8 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { toastErrorNotify } from "../helper/ToastNotify";
 import GoogleIcon from "../assets/GoogleIcon";
 
-const Login = () => {
-  const { signIn, signUpWithGoogle } = useAuth();
+const Register = () => {
+  const { signUp, signUpWithGoogle } = useAuth(); // Use signUp for email registration
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,8 +15,8 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await signIn(email, password);
-      navigate("/chat");
+      await signUp(email, password);
+      navigate("/chat"); // Redirect after successful registration
     } catch (error) {
       toastErrorNotify(error.message);
     } finally {
@@ -24,7 +24,7 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleSignUp = async () => {
     setLoading(true);
     try {
       await signUpWithGoogle();
@@ -40,7 +40,7 @@ const Login = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="bg-white dark:bg-gray-800 w-[380px] h-[500px] p-8 rounded-xl shadow-2xl card-shadow animate-pulseRGB">
         <h2 className="text-red-500 text-2xl font-semibold text-center mb-6">
-          Welcome Back
+          Create an Account
         </h2>
 
         <form onSubmit={handleSubmit}>
@@ -68,7 +68,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              autoComplete="current-password"
+              autoComplete="new-password"
             />
           </div>
 
@@ -79,21 +79,22 @@ const Login = () => {
             }`}
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Log in"}
+            {loading ? "Registering..." : "Register"}
           </button>
 
           <button
             type="button"
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleSignUp}
             className="w-full flex items-center justify-center py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            disabled={loading}
           >
             Continue with Google
             <GoogleIcon className="ml-2" />
           </button>
 
           <div className="text-center mt-4">
-            <Link to="/register" className="text-blue-500 hover:text-blue-600">
-              Don't have an account? Register
+            <Link to="/login" className="text-blue-500 hover:text-blue-600">
+              Already have an account? Log in
             </Link>
           </div>
         </form>
@@ -102,4 +103,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
