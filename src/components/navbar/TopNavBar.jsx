@@ -20,7 +20,7 @@ const TopNavBar = () => {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate("/login"); // Redirect to /login after logout
+      navigate("/"); // Redirect to /login after logout
     } catch (err) {
       console.error("Logout error:", err);
     }
