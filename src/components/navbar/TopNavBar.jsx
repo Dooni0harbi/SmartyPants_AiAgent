@@ -1,13 +1,14 @@
 import React from "react";
 import { useApp } from "../../context/AppContext";
 import { MoonIcon, SunIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
-import { useAuth } from "../../context/AuthContext";  // Import useAuth to access logOut
-import { useNavigate } from "react-router-dom";  // Import useNavigate for navigation
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
 
 const TopNavBar = () => {
   const { state, setTheme } = useApp();
-  const { logOut } = useAuth();  // Get logOut function from AuthContext
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const { logOut, currentUser } = useAuth(); // Add currentUser to know if logged in
+  const navigate = useNavigate();
+  const location = useLocation(); // Get current path
   const isDark = state.theme === "dark";
 
   const handleToggleTheme = () => {
@@ -18,12 +19,16 @@ const TopNavBar = () => {
 
   const handleLogout = async () => {
     try {
-      await logOut();  // Call logOut function
-      navigate("/");  // Redirect to Home page (Welcome page) after logging out
+      await logOut();
+      navigate("/login"); // Redirect to /login after logout
     } catch (err) {
       console.error("Logout error:", err);
     }
   };
+
+  // Paths where logout button should NOT appear
+  const hideLogoutPaths = ["/", "/login", "/register"];
+  const hideLogout = hideLogoutPaths.includes(location.pathname);
 
   return (
     <nav className="flex items-center justify-between p-4 bg-white dark:bg-gray-900 shadow-md">
@@ -41,16 +46,20 @@ const TopNavBar = () => {
           )}
         </button>
 
-        <button
-          onClick={handleLogout}
-          className="flex items-center space-x-2 px-3 py-2 rounded bg-red-500 text-white hover:bg-red-600"
-        >
-          <ArrowRightOnRectangleIcon className="h-5 w-5" />
-          <span>Logout</span>
-        </button>
+        {/* Only show logout if user is logged in AND current path is NOT in hideLogoutPaths */}
+        {currentUser && !hideLogout && (
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 px-3 py-2 rounded bg-red-500 text-white hover:bg-red-600"
+          >
+            <ArrowRightOnRectangleIcon className="h-5 w-5" />
+            <span>Logout</span>
+          </button>
+        )}
       </div>
     </nav>
   );
 };
 
 export default TopNavBar;
+
