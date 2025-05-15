@@ -72,16 +72,16 @@ a {
 
 @keyframes pulseRGB {
   0% {
-    box-shadow: 0 0 3px rgba(255, 0, 255, 0.2), 0 0 6px rgba(255, 0, 255, 0.15);
+    box-shadow: 0 0 5px rgba(255, 0, 255, 0.2), 0 0 6px rgba(255, 0, 255, 0.15);
   }
   25% {
-    box-shadow: 0 0 4px rgba(137, 197, 197, 0.15), 0 0 8px rgba(137, 197, 197, 0.1);
+    box-shadow: 0 0 5px rgba(137, 197, 197, 0.15), 0 0 8px rgba(137, 197, 197, 0.1);
   }
   50% {
     box-shadow: 0 0 5px rgba(160, 171, 223, 0.2), 0 0 10px rgba(160, 171, 223, 0.15);
   }
   100% {
-    box-shadow: 0 0 3px rgba(255, 0, 255, 0.2), 0 0 6px rgba(255, 0, 255, 0.15);
+    box-shadow: 0 0 4px rgba(255, 0, 255, 0.2), 0 0 6px rgba(255, 0, 255, 0.15);
   }
 }
 
