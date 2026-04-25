@@ -100,6 +100,38 @@ const Login = () => {
   );
 };
 
+export default Login;          </div>
+
+          <button
+            type="submit"
+            className={`w-full py-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 mb-4 transition ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Log in"}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          >
+            Continue with Google
+            <GoogleIcon className="ml-2" />
+          </button>
+
+          <div className="text-center mt-4">
+            <Link to="/register" className="text-blue-500 hover:text-blue-600">
+              Don't have an account? Register
+            </Link>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 export default Login;              required
             />
           </div>
