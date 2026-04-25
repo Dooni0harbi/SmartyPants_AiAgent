@@ -14,14 +14,19 @@ export const AuthContextProvider = ({ children }) => {
       setLoading(false);
     });
 
-    return () => unsubscribe(); // Cleanup on component unmount
+    return () => unsubscribe();
   }, []);
+
+  const signUp = async (email, password) => {
+    await createUserWithEmailAndPassword(auth, email, password);
+  };
 
   const signIn = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       console.error(err);
+      throw err;
     }
   };
 
@@ -35,11 +40,10 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, loading, signIn, signUpWithGoogle, logOut }}>
+    <AuthContext.Provider value={{ currentUser, loading, signUp, signIn, signUpWithGoogle, logOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// This should only be declared once at the end of the file
 export const useAuth = () => useContext(AuthContext);
