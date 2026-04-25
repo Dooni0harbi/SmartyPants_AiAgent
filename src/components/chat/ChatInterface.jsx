@@ -4,7 +4,7 @@ import MessageInput from "./MessageInput";
 
 const ChatInterface = () => {
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-full">
       <MessageList />
       <MessageInput />
     </div>
@@ -12,5 +12,3 @@ const ChatInterface = () => {
 };
 
 export default ChatInterface;
-
-
