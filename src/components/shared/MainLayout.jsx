@@ -3,17 +3,13 @@ import SideSmallNav from "../navbar/SideSmallNav";
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="flex">
-      {/* Sidebar */}
+    <div className="flex h-[calc(100vh-4rem)]">
       <SideSmallNav />
-      
-      {/* Main content */}
-      <main className="flex-1 p-6 ml-16 transition-all duration-300 ease-in-out">
-        {children} {/* This is where the page content will be rendered */}
+      <main className="flex-1 overflow-auto transition-all duration-300 ease-in-out pb-16 md:pb-0">
+        {children}
       </main>
     </div>
   );
 };
 
 export default MainLayout;
-
